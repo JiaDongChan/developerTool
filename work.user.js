@@ -4,7 +4,7 @@
 // @description  工作常用功能
 // @author       yulei@addcn.com
 // @Updated date 2018-09-10 15:53:45
-// @match *.addcn.com/591/tw591/merge_requests*
+// @match *.addcn.com/*
 // @namespace   addcn.com 
 // ==/UserScript==
 
