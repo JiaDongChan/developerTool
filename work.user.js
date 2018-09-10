@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         work
-// @version      0.1
+// @version      0.2
 // @description  工作常用功能
 // @author       yulei@addcn.com
 // @Updated date 2018-09-10 15:53:45
