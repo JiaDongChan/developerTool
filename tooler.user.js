@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        tooler
-// @version      0.2
+// @version      0.3
 // @description  快速切換開發環境的腳本
 // @author       yulei@addcn.com
 // @Updated date 2015-03-25
