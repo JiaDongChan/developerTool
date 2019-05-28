@@ -225,7 +225,51 @@ function delCookie(name) {
     var cval=getCookie(name); 
     if(cval!=null) 
         document.cookie= name + "="+cval+";expires="+exp.toGMTString(); 
-} 
+}
+
+/**
+ * 显示原图功能
+ */
+; (function () {
+	if (/.jpg$/.test(location.href) && !location.href.includes('src_')) {
+		if (!document.getElementById("toolerSize")) {
+			// 创建对象
+			var toolerSize = document.createElement("div");
+			toolerSize.id = "toolerSize";
+			toolerSize.innerHTML = "显示原图";
+			document.body.appendChild(toolerSize);
+
+			// 插入样式
+			var toolerSize_style = document.createElement("style");
+			toolerSize_style.type = "text/css";
+			toolerSize_style.innerHTML = `
+				#toolerSize{
+					width: 150px; height: 50px; position: absolute; top: 0; right: 0; background: #f00; color: #fff; line-height: 50px; text-align: center; cursor: pointer;
+				}
+			`;
+			document.getElementsByTagName('head')[0].appendChild(toolerSize_style);
+
+
+			/**
+			 * 绑定事件
+			 */
+			toolerSize.addEventListener('click', () => {
+				let pathname = location.pathname
+				pathname = pathname.replace('active/', '')
+
+				let newPathName = pathname.split('/').map(item => {
+					if (item.includes('_')) {
+						item = `src_${item.split('_')[0]}.jpg`
+					}
+
+					return item
+				})
+
+				location.href = `${location.origin}${newPathName.join('/')}`
+			})
+		}
+	}
+})()
 
 
 
