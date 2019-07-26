@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        tooler
-// @version      0.3
+// @version      0.4
 // @description  快速切換開發環境的腳本
 // @author       yulei@addcn.com
 // @Updated date 2015-03-25
@@ -229,9 +229,10 @@ function delCookie(name) {
 
 /**
  * 显示原图功能
+ * 支持 png 和 gif 图片替换功能 - 2019-07-26 14:27:02
  */
 ; (function () {
-	if (/.jpg$/.test(location.href) && !location.href.includes('src_')) {
+	if (/.(jpg|png|gif)$/.test(location.href) && !location.href.includes('src_')) {
 		if (!document.getElementById("toolerSize")) {
 			// 创建对象
 			var toolerSize = document.createElement("div");
@@ -258,9 +259,12 @@ function delCookie(name) {
 				pathname = pathname.replace('active/', '')
 
 				let newPathName = pathname.split('/').map(item => {
+					console.log(item)
 					if (item.includes('_')) {
-						item = `src_${item.split('_')[0]}.jpg`
+						let suffix = item.split('_')[1].split('.').pop()
+						item = `src_${item.split('_')[0]}.${suffix}`
 					}
+
 
 					return item
 				})
