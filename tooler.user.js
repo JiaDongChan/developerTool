@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        tooler
-// @version      0.4
+// @version      0.5
 // @description  快速切換開發環境的腳本
 // @author       yulei@addcn.com
 // @Updated date 2015-03-25
@@ -259,7 +259,6 @@ function delCookie(name) {
 				pathname = pathname.replace('active/', '')
 
 				let newPathName = pathname.split('/').map(item => {
-					console.log(item)
 					if (item.includes('_')) {
 						let suffix = item.split('_')[1].split('.').pop()
 						item = `src_${item.split('_')[0]}.${suffix}`
