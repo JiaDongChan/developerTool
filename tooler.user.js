@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name        tooler
-// @version      0.5
+// @version      0.6
 // @description  快速切換開發環境的腳本
 // @author       yulei@addcn.com
-// @Updated date 2015-03-25
+// @Updated date 2021-07-21
 // @match *.591.com.hk/*
 // @match *.591.com.tw/*
 // @namespace   591.com 
