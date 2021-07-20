@@ -232,46 +232,64 @@ function delCookie(name) {
  * 支持 png 和 gif 图片替换功能 - 2019-07-26 14:27:02
  */
 ; (function () {
-	if (/.(jpg|png|gif)$/.test(location.href) && !location.href.includes('src_')) {
-		if (!document.getElementById("toolerSize")) {
-			// 创建对象
-			var toolerSize = document.createElement("div");
-			toolerSize.id = "toolerSize";
-			toolerSize.innerHTML = "显示原图";
-			document.body.appendChild(toolerSize);
+	const hostname = location.hostname
+	const pathname = location.pathname
+	const matchHosts = ['hp2.591.com.tw', 'hp1.591.com.tw', 'img1.591.com.tw']
+	const matchPaths = ['/house/']
 
-			// 插入样式
-			var toolerSize_style = document.createElement("style");
-			toolerSize_style.type = "text/css";
-			toolerSize_style.innerHTML = `
-				#toolerSize{
-					width: 150px; height: 50px; position: absolute; top: 0; right: 0; background: #f00; color: #fff; line-height: 50px; text-align: center; cursor: pointer;
-				}
-			`;
-			document.getElementsByTagName('head')[0].appendChild(toolerSize_style);
+	if (!/.(jpg|png|gif)$/.test(pathname)) return false
+	if (pathname.includes('src_')) return false
+	if (document.getElementById("toolerSize")) return false
 
+	// 创建对象
+	var toolerSize = document.createElement("div");
+	toolerSize.id = "toolerSize";
+	toolerSize.innerHTML = "显示原图";
+	document.body.appendChild(toolerSize);
 
-			/**
-			 * 绑定事件
-			 */
-			toolerSize.addEventListener('click', () => {
-				let pathname = location.pathname
-				pathname = pathname.replace('active/', '')
-
-				let newPathName = pathname.split('/').map(item => {
-					if (item.includes('_')) {
-						let suffix = item.split('_')[1].split('.').pop()
-						item = `src_${item.split('_')[0]}.${suffix}`
-					}
-
-
-					return item
-				})
-
-				location.href = `${location.origin}${newPathName.join('/')}`
-			})
+	// 插入样式
+	var toolerSize_style = document.createElement("style");
+	toolerSize_style.innerHTML = `
+		#toolerSize{
+			width: 150px; height: 50px; position: absolute; top: 0; right: 0; background: #f90; color: #fff; line-height: 50px; text-align: center; cursor: pointer;
 		}
-	}
+	`;
+	document.getElementsByTagName('head')[0].appendChild(toolerSize_style);
+
+
+	/**
+	 * 绑定事件
+	 */
+	toolerSize.addEventListener('click', () => {
+    let origin = location.origin
+		let pathNameData = []
+
+    if (['hp2.591.com.tw', 'hp1.591.com.tw'].includes(hostname)) {
+      let _pathname = pathname
+      _pathname = _pathname.replace('active/', '')
+      pathNameData = _pathname.split('/').map(item => {
+        if (item.includes('_')) {
+          let suffix = item.split('_')[1].split('.').pop()
+          item = `src_${item.split('_')[0]}.${suffix}`
+        }
+        return item
+      })
+    }
+
+    if (['img1.591.com.tw'].includes(hostname)) {
+      let _pathname = pathname.split('!')[0]
+      pathNameData = _pathname.split('/').map(item => {
+        if (item.includes('.')) {
+          item = `src_${item}`
+        }
+        return item
+      })
+      origin = 'https://hp1.591.com.tw'
+    }
+
+    location.href = `${origin}${pathNameData.join('/')}`
+	})
+
 })()
 
 
